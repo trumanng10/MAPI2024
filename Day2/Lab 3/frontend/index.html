@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Voting App</title>
+</head>
+<body>
+  <h1>Vote for your favorite option!</h1>
+  <button onclick="vote('option1')">Option 1</button>
+  <button onclick="vote('option2')">Option 2</button>
+
+  <div id="results">
+    <h2>Current Results:</h2>
+    <p>Option 1: <span id="option1-votes">0</span></p>
+    <p>Option 2: <span id="option2-votes">0</span></p>
+  </div>
+
+  <script>
+    function vote(option) {
+      fetch('/vote', {
+        method: 'POST',
+        body: JSON.stringify({ vote: option }),
+        headers: { 'Content-Type': 'application/json' }
+      })
+      .then(response => response.json())
+      .then(data => {
+        document.getElementById('option1-votes').textContent = data.option1;
+        document.getElementById('option2-votes').textContent = data.option2;
+      });
+    }
+
+    setInterval(() => {
+      fetch('/results')
+        .then(response => response.json())
+        .then(data => {
+          document.getElementById('option1-votes').textContent = data.option1;
+          document.getElementById('option2-votes').textContent = data.option2;
+        });
+    }, 1000);
+  </script>
+</body>
+</html>

@@ -4,7 +4,8 @@ from tkinter import messagebox
 
 # Function to fetch weather data
 def fetch_weather_data():
-    url = "http://api.weatherapi.com/v1/current.json?key=af53e4aa3bb84f8391b61235241712&q=London&aqi=no"
+    key=''
+    url = f"http://api.weatherapi.com/v1/current.json?key={key}&q=London&aqi=no"
     
     try:
         response = requests.get(url)

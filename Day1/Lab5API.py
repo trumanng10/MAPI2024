@@ -2,7 +2,7 @@ from flask import Flask, jsonify, request
 
 app = Flask(__name__)
 
-@app.route("/")
+@app.route("/json")
 def home():
     sender_ip = request.remote_addr  # Captures the IP of the requester
     cookies = request.cookies  # Retrieves cookies sent with the request

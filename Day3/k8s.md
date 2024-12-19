@@ -112,7 +112,7 @@ Example for deploying an application (e.g., NGINX):
    metadata:
      name: nginx
    spec:
-     replicas: 3
+     replicas: 4
      selector:
        matchLabels:
          app: nginx

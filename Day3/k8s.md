@@ -16,7 +16,7 @@ If you haven’t already created a Kubernetes cluster on DigitalOcean, follow th
 Once the cluster is created, you will be able to manage it through the DigitalOcean dashboard or using `kubectl`.
 
 ### 2. **Download `kubectl` (DigitalOcean CLI)**
-`doctl` is the DigitalOcean command-line tool used to manage DigitalOcean resources from the terminal.
+
 
 1. **Verify the kubeconfig**:
    After running the command, your kubeconfig file is automatically saved, and you can check it using:
@@ -34,14 +34,15 @@ Once the `kubectl` is installed and configured, you can verify if you're able to
 1. Run the following command to check the cluster status:
 
    ```bash
-   kubectl get nodes
-   ```
+   kubectl --kubeconfig=k8s-1-31-1-do-5-sgp1-1734576867471-kubeconfig.yaml get nodes
+    ```
 
    This should display the nodes in your Kubernetes cluster.
 
 2. You can also check the Kubernetes context to confirm that you're connected to the right cluster:
 
    ```bash
+   kubectl get nodes
    kubectl config current-context
    ```
 

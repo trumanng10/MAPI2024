@@ -15,50 +15,10 @@ If you haven’t already created a Kubernetes cluster on DigitalOcean, follow th
 
 Once the cluster is created, you will be able to manage it through the DigitalOcean dashboard or using `kubectl`.
 
-### 2. **Install `doctl` (DigitalOcean CLI)**
+### 2. **Download `kubectl` (DigitalOcean CLI)**
 `doctl` is the DigitalOcean command-line tool used to manage DigitalOcean resources from the terminal.
 
-1. **Install `doctl`**:
-   - For **macOS** using Homebrew:
-
-     ```bash
-     brew install doctl
-     ```
-
-   - For **Linux**, you can install using the following command:
-
-     ```bash
-     snap install doctl
-     ```
-
-   - For **Windows**, you can use `choco`:
-
-     ```bash
-     choco install doctl
-     ```
-
-2. **Authenticate `doctl`**:
-   - Run the following command to authenticate:
-
-     ```bash
-     doctl auth init
-     ```
-
-   - This will prompt you to enter your DigitalOcean API token. You can find or create your API token from [here](https://cloud.digitalocean.com/account/api/tokens).
-
-### 3. **Get Kubernetes Cluster Config File**
-After the cluster is created, you need to retrieve the **kubeconfig** file to access and manage the cluster.
-
-1. **Get kubeconfig for your cluster**:
-   Run the following command to download the kubeconfig file for your cluster:
-
-   ```bash
-   doctl kubernetes cluster kubeconfig save <cluster-name>
-   ```
-
-   Replace `<cluster-name>` with the name of your Kubernetes cluster. This will configure your `kubectl` to interact with your Kubernetes cluster.
-
-2. **Verify the kubeconfig**:
+1. **Verify the kubeconfig**:
    After running the command, your kubeconfig file is automatically saved, and you can check it using:
 
    ```bash
@@ -67,31 +27,8 @@ After the cluster is created, you need to retrieve the **kubeconfig** file to ac
 
    Make sure the file contains the context for your DigitalOcean Kubernetes cluster.
 
-### 4. **Install `kubectl`**
-`kubectl` is the command-line tool to interact with Kubernetes clusters.
 
-- **Install `kubectl`**:
-   - For **macOS**:
-
-     ```bash
-     brew install kubectl
-     ```
-
-   - For **Linux**:
-
-     ```bash
-     curl -LO "https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl"
-     chmod +x ./kubectl
-     sudo mv ./kubectl /usr/local/bin/kubectl
-     ```
-
-   - For **Windows**, use `choco`:
-
-     ```bash
-     choco install kubernetes-cli
-     ```
-
-### 5. **Verify Access to the Kubernetes Cluster**
+### 3. **Verify Access to the Kubernetes Cluster**
 Once the `kubectl` is installed and configured, you can verify if you're able to connect to the Kubernetes cluster.
 
 1. Run the following command to check the cluster status:
@@ -108,7 +45,7 @@ Once the `kubectl` is installed and configured, you can verify if you're able to
    kubectl config current-context
    ```
 
-### 6. **Access the Kubernetes Dashboard (Optional)**
+### 4. **Access the Kubernetes Dashboard (Optional)**
 To access the Kubernetes Dashboard, which provides a web-based user interface for managing your cluster, follow these steps:
 
 1. **Enable the Kubernetes Dashboard**:
@@ -148,12 +85,22 @@ To access the Kubernetes Dashboard, which provides a web-based user interface fo
    http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/
    ```
 
-### 7. **Deploy Applications to the Cluster**
+### 5. **Deploy Applications to the Cluster**
 You can now deploy applications to the DigitalOcean Kubernetes cluster using `kubectl` or Helm.
 
 Example for deploying an application (e.g., NGINX):
 
-1. Create a deployment YAML file `nginx-deployment.yaml`:
+1. Create Namespace:
+     ```bash
+   kubectl create namespace <your_name>
+   kubectl get pods --namespace=<your_name>
+     ```
+2. Access to the Namespace:
+     ```bash
+   kubectl config set-context --current --namespace=<your_name>
+      ```
+     
+3. Create a deployment YAML file `nginx-deployment.yaml`:
 
    ```yaml
    apiVersion: apps/v1
@@ -161,7 +108,7 @@ Example for deploying an application (e.g., NGINX):
    metadata:
      name: nginx
    spec:
-     replicas: 2
+     replicas: 3
      selector:
        matchLabels:
          app: nginx
@@ -177,13 +124,13 @@ Example for deploying an application (e.g., NGINX):
            - containerPort: 80
    ```
 
-2. Apply the YAML file to your cluster:
+5. Apply the YAML file to your cluster:
 
    ```bash
    kubectl apply -f nginx-deployment.yaml
    ```
 
-3. Expose the deployment as a service:
+6. Expose the deployment as a service:
 
    ```bash
    kubectl expose deployment nginx --port=80 --type=LoadBalancer
@@ -194,18 +141,17 @@ Example for deploying an application (e.g., NGINX):
    ```bash
    kubectl get svc
    ```
+      ```bash
+   kubectl describe svc nginx
+   ```
+      ```bash
+   kubectl get deploy
+   ```
+         ```bash
+   kubectl get pod
+   ```
 
-### 8. **Monitor and Manage Your Cluster**
+### 7. **Monitor and Manage Your Cluster**
 You can manage and monitor your Kubernetes cluster directly via `kubectl`, Portainer, or using the DigitalOcean Dashboard. The Kubernetes Dashboard provides a UI for managing applications, viewing cluster health, and accessing logs.
 
----
 
-### Summary:
-By following these steps, you'll be able to access and manage your Kubernetes cluster on DigitalOcean:
-1. Create a cluster on DigitalOcean.
-2. Install and configure `doctl` and `kubectl`.
-3. Get the kubeconfig and test the cluster access.
-4. Optionally, set up the Kubernetes Dashboard for easier cluster management.
-5. Deploy applications and services using `kubectl`.
-
-Let me know if you need further details on any step!

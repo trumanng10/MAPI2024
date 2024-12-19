@@ -52,8 +52,8 @@ docker run -d \
 ### 5. **Access the Portainer Web UI**
 Once the container is running, you can access the Portainer web UI by visiting:
 
-- **HTTP**: `http://localhost:9000`
-- **HTTPS** (if you mapped port 9443): `https://localhost:9443`
+- **HTTP**: `http://<IP_Addr>:9000`
+- **HTTPS** (if you mapped port 9443): `https://<IP_Addr>:9443`
 
 ### 6. **Setup Portainer**
 When you access Portainer for the first time, you will be prompted to create an admin user. After that, you can connect Portainer to your Docker environment.

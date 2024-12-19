@@ -1,4 +1,4 @@
-To access a Kubernetes cluster on **DigitalOcean**, follow these steps:
+
 
 ### 1. **Create a Kubernetes Cluster on DigitalOcean**
 If you haven’t already created a Kubernetes cluster on DigitalOcean, follow these steps:

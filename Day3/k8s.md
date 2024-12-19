@@ -41,7 +41,7 @@ Once the `kubectl` is installed and configured, you can verify if you're able to
 
 2. You can also check the Kubernetes context to confirm that you're connected to the right cluster:
    ```bash
-   doskey kubectl="kubectl --kubeconfig=k8s-1-31-1-do-5-sgp1-1734576867471-kubeconfig.yaml"
+   doskey kubectl=kubectl --kubeconfig=k8s-1-31-1-do-5-sgp1-1734576867471-kubeconfig.yaml $*
    ```
    
    ```bash

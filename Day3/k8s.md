@@ -151,7 +151,7 @@ Example for deploying an application (e.g., NGINX):
       ```bash
    kubectl get deploy
    ```
-         ```bash
+        
    kubectl get pod
    ```
 
